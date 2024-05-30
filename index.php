@@ -1,7 +1,26 @@
 <?php
 declare(strict_types=1);
 
+use App\TODOItem;
+use Symfony\Component\Console\Application;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+
 require_once __DIR__ . '/vendor/autoload.php';
 
-$todo = new \app\TODOItem();
-var_dump($todo);
+
+$application = new Application();
+
+$start = new class extends Command
+{
+    protected static $defaultName = "start";
+    protected function execute(InputInterface $input, OutputInterface $output): int
+    {
+        return Command::SUCCESS;
+    }
+};
+
+$application->add($start);
+$application->setDefaultCommand("start");
+$application->run();
