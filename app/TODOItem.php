@@ -37,18 +37,35 @@ class TODOItem
         $this->state = $state;
     }
 
+    private function setId(int $id): void
+    {
+        $this->id = $id;
+    }
+
     public function id(): int
     {
         return $this->id;
     }
 
-    public function check()
+    public function check(): void
     {
         $this->setState(self::STATUS_CHECKED);
     }
 
-    public function uncheck()
+    public function uncheck(): void
     {
         $this->setState(self::STATUS_UNCHECKED);
+    }
+
+    public function serialize(): string
+    {
+        return json_encode(["text" => $this->text, "id" => $this->id, "state" => $this->state]);
+    }
+
+    public static function deserialize(\stdClass $properties): TODOItem
+    {
+        $item = new TODOItem($properties->text, $properties->id);
+        $item->setState($properties->state);
+        return $item;
     }
 }
