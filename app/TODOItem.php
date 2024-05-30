@@ -64,7 +64,6 @@ class TODOItem
 
     public static function deserialize(\stdClass $stringItem): TODOItem
     {
-        var_dump($stringItem);
         $item = new TODOItem($stringItem->text, $stringItem->id);
         $item->setState($stringItem->state);
         return $item;
