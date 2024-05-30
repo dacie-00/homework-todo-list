@@ -26,12 +26,25 @@ $start = new class extends Command
         $parenthesis = substr($choice, strrpos($choice, "("));
         return (int)substr($parenthesis, 1, strlen($parenthesis) - 2);
     }
+
+    private function getSave(): ?array
+    {
+        if (file_exists("data/save.json")){
+            return json_decode(file_get_contents("data/save.json"));
+        }
+        return null;
+    }
+
+    private function save(string $data)
+    {
+        file_put_contents("data/save.json", $data);
+    }
+
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $todoList = new TODOList();
-        if (file_exists("save")) {
-            $todoList->deserialize(json_decode(file_get_contents("save")));
-            echo json_last_error();
+        if ($save = $this->getSave()){
+            $todoList->deserialize($save);
         }
         $todoListDisplay = new TODOListDisplay($output);
 
@@ -61,7 +74,7 @@ $start = new class extends Command
                     $item->setText(Ask::editText($item->text()));
                     break;
                 case Ask::SAVE:
-                    file_put_contents("save", $todoList->serialize());
+                    $this->save($todoList->serialize());
             }
         }
 
