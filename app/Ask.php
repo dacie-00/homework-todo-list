@@ -43,4 +43,13 @@ class Ask
         $question = new ChoiceQuestion("Action", $choices);
         return self::$helper->ask(self::$input, self::$output, $question);
     }
+
+    public static function editText(string $text)
+    {
+        $beginning = trim(substr($text, 0, 10)) . "...";
+        $question = new Question("Editing text '$beginning' - \n", $text);
+        $question->setAutocompleterValues([$text]);
+        return self::$helper->ask(self::$input, self::$output, $question);
+
+    }
 }
