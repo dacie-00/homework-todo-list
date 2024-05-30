@@ -14,6 +14,7 @@ class Ask
     private static OutputInterface $output;
     private static QuestionHelper $helper;
 
+    const ADD_ITEM = "add item";
     const TOGGLE_CHECK_ITEM = "toggle check item";
     const EDIT_ITEM = "edit item";
     const DELETE_ITEM = "delete item";
@@ -27,7 +28,7 @@ class Ask
 
     public static function listAction(): string
     {
-        $question = new ChoiceQuestion("Action", [self::TOGGLE_CHECK_ITEM, self::EDIT_ITEM, self::DELETE_ITEM]);
+        $question = new ChoiceQuestion("Action", [self::ADD_ITEM, self::TOGGLE_CHECK_ITEM, self::EDIT_ITEM, self::DELETE_ITEM]);
         return self::$helper->ask(self::$input, self::$output, $question);
     }
 
@@ -44,12 +45,17 @@ class Ask
         return self::$helper->ask(self::$input, self::$output, $question);
     }
 
-    public static function editText(string $text)
+    public static function editText(string $text): string
     {
         $beginning = trim(substr($text, 0, 50)) . "...";
         $question = new Question("Editing text '$beginning' - \n", $text);
         $question->setAutocompleterValues([$text]);
         return self::$helper->ask(self::$input, self::$output, $question);
+    }
 
+    public static function text(): string
+    {
+        $question = new Question("Enter text - \n");
+        return self::$helper->ask(self::$input, self::$output, $question);
     }
 }

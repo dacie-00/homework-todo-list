@@ -38,17 +38,25 @@ $start = new class extends Command
         while(true){
             $todoListDisplay->list($todoList->items());
             $action = Ask::listAction();
-            $id = $this->extractIDFromChoice(Ask::item($todoList->items()));
-            $item = $todoList->get($id);
 
             switch ($action) {
+                case Ask::ADD_ITEM:
+                    $name = Ask::text();
+                    $todoList->add($name);
+                    break;
                 case Ask::DELETE_ITEM:
+                    $id = $this->extractIDFromChoice(Ask::item($todoList->items()));
+                    $item = $todoList->get($id);
                     $todoList->remove($item);
                     break;
                 case Ask::TOGGLE_CHECK_ITEM:
+                    $id = $this->extractIDFromChoice(Ask::item($todoList->items()));
+                    $item = $todoList->get($id);
                     $todoList->toggleCheck($item);
                     break;
                 case Ask::EDIT_ITEM:
+                    $id = $this->extractIDFromChoice(Ask::item($todoList->items()));
+                    $item = $todoList->get($id);
                     $item->setText(Ask::editText($item->text()));
                     break;
             }
