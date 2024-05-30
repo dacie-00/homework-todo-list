@@ -6,6 +6,7 @@ use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ChoiceQuestion;
+use Symfony\Component\Console\Question\Question;
 
 class Ask
 {
@@ -17,14 +18,14 @@ class Ask
     const EDIT_ITEM = "edit item";
     const DELETE_ITEM = "delete item";
 
-    static function initialize(InputInterface $input, OutputInterface $output, QuestionHelper $helper): void
+    public static function initialize(InputInterface $input, OutputInterface $output, QuestionHelper $helper): void
     {
         self::$input = $input;
         self::$output = $output;
         self::$helper = $helper;
     }
 
-    static function listAction(): string
+    public static function listAction(): string
     {
         $question = new ChoiceQuestion("Action", [self::CHECK_ITEM, self::EDIT_ITEM, self::DELETE_ITEM]);
         return self::$helper->ask(self::$input, self::$output, $question);
@@ -33,7 +34,7 @@ class Ask
     /**
      * @param TODOItem[] $items
      */
-    static function item(array $items): string
+    public static function item(array $items): string
     {
         $choices = [];
         foreach ($items as $item) {
