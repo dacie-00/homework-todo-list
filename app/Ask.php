@@ -14,7 +14,7 @@ class Ask
     private static OutputInterface $output;
     private static QuestionHelper $helper;
 
-    const CHECK_ITEM = "check item";
+    const TOGGLE_CHECK_ITEM = "toggle check item";
     const EDIT_ITEM = "edit item";
     const DELETE_ITEM = "delete item";
 
@@ -27,7 +27,7 @@ class Ask
 
     public static function listAction(): string
     {
-        $question = new ChoiceQuestion("Action", [self::CHECK_ITEM, self::EDIT_ITEM, self::DELETE_ITEM]);
+        $question = new ChoiceQuestion("Action", [self::TOGGLE_CHECK_ITEM, self::EDIT_ITEM, self::DELETE_ITEM]);
         return self::$helper->ask(self::$input, self::$output, $question);
     }
 

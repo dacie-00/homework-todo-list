@@ -41,13 +41,12 @@ class TODOList
         }
     }
 
-    public function check(TODOItem $item): void
+    public function toggleCheck(TODOItem $item): void
     {
-        $item->check();
-    }
-
-    public function uncheck(TODOItem $item): void
-    {
+        if ($item->state() == TODOItem::STATUS_UNCHECKED) {
+            $item->check();
+            return;
+        }
         $item->uncheck();
     }
 
