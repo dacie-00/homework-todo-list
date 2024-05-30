@@ -4,17 +4,17 @@ namespace App;
 
 class IDGenerator
 {
-    static array $ids = [];
-    static function id()
+    private array $ids = [];
+    public function id()
     {
-        $newID = end(self::$ids) + 1;
-        self::$ids[] = $newID;
+        $newID = end($this->ids) + 1;
+        $this->ids[] = $newID;
         return $newID;
     }
 
-    static function populate($ids)
+    public function populate($ids)
     {
-        self::$ids = $ids;
+        $this->ids = $ids;
     }
 
 }

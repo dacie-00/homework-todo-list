@@ -8,14 +8,18 @@ class TODOList
      * @var TODOItem[]
      */
     private array $items = [];
+    private IDGenerator $idGenerator;
 
     public function __construct()
     {
+        $this->idGenerator = new IDGenerator();
     }
 
-    public function add(TODOItem $item): void
+    public function add(string $text): TODOItem
     {
+        $item = new TODOItem($text, $this->idGenerator->id());
         $this->items[] = $item;
+        return $item;
     }
 
     public function get(int $id): ?TODOItem

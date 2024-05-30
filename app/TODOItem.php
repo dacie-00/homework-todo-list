@@ -11,10 +11,10 @@ class TODOItem
     private int $id;
     private string $state = self::STATUS_UNCHECKED;
 
-    public function __construct(string $text)
+    public function __construct(string $text, int $id)
     {
         $this->text = $text;
-        $this->id = IDGenerator::id();
+        $this->id = $id;
     }
 
     public function text(): string
