@@ -46,7 +46,7 @@ class Ask
 
     public static function editText(string $text)
     {
-        $beginning = trim(substr($text, 0, 10)) . "...";
+        $beginning = trim(substr($text, 0, 50)) . "...";
         $question = new Question("Editing text '$beginning' - \n", $text);
         $question->setAutocompleterValues([$text]);
         return self::$helper->ask(self::$input, self::$output, $question);
