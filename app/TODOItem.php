@@ -8,11 +8,13 @@ class TODOItem
     const STATUS_CHECKED = "checked";
 
     private string $text;
+    private int $id;
     private string $state = self::STATUS_UNCHECKED;
 
     public function __construct(string $text)
     {
         $this->text = $text;
+        $this->id = IDGenerator::id();
     }
 
     public function text(): string
@@ -33,5 +35,10 @@ class TODOItem
     public function setState(string $state): void
     {
         $this->state = $state;
+    }
+
+    public function id(): int
+    {
+        return $this->id;
     }
 }
