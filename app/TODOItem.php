@@ -41,4 +41,14 @@ class TODOItem
     {
         return $this->id;
     }
+
+    public function check()
+    {
+        $this->setState(self::STATUS_CHECKED);
+    }
+
+    public function uncheck()
+    {
+        $this->setState(self::STATUS_UNCHECKED);
+    }
 }
