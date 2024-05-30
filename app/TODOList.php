@@ -2,7 +2,7 @@
 
 namespace App;
 
-class TODOItemRepository
+class TODOList
 {
     /**
      * @var TODOItem[]
