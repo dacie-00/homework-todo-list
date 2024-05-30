@@ -18,15 +18,6 @@ class TODOItemRepository
         $this->items[] = $item;
     }
 
-    public function remove(TODOItem $item): void
-    {
-        foreach ($this->items as $index => $otherItem) {
-            if ($item === $otherItem) {
-                unset($this->items[$index]);
-            }
-        }
-    }
-
     public function get(int $id): ?TODOItem
     {
         foreach ($this->items as $item) {
@@ -37,17 +28,27 @@ class TODOItemRepository
         return null;
     }
 
-    public function check(int $id): void
+    public function remove(TODOItem $item): void
     {
-        if ($item = $this->get($id)) {
-            $item->check();
+        foreach ($this->items as $index => $otherItem) {
+            if ($item === $otherItem) {
+                unset($this->items[$index]);
+            }
         }
     }
 
-    public function uncheck(int $id): void
+    public function check(TODOItem $item): void
     {
-        if ($item = $this->get($id)) {
-            $item->check();
-        }
+        $item->check();
+    }
+
+    public function uncheck(TODOItem $item): void
+    {
+        $item->uncheck();
+    }
+
+    public function items(): array
+    {
+        return $this->items;
     }
 }
