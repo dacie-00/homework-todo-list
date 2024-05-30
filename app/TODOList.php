@@ -54,4 +54,20 @@ class TODOList
     {
         return $this->items;
     }
+
+    public function serialize(): string
+    {
+        $serializedItems = [];
+        foreach ($this->items as $item) {
+            $serializedItems[] = $item->serialize();
+        }
+        return json_encode($serializedItems);
+    }
+
+    public function deserialize(array $serializedItems): void
+    {
+        foreach ($serializedItems as $item) {
+            $this->items[] = TODOItem::deserialize($item);
+        }
+    }
 }

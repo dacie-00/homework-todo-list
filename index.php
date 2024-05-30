@@ -29,9 +29,10 @@ $start = new class extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $todoList = new TODOList();
-        $todoList->add("wash socks");
-        $todoList->add("bake cake");
-        $todoList->add("study for codelex");
+        if (file_exists("save")) {
+            $todoList->deserialize(json_decode(file_get_contents("save")));
+            echo json_last_error();
+        }
         $todoListDisplay = new TODOListDisplay($output);
 
         Ask::initialize($input, $output, new Symfony\Component\Console\Helper\QuestionHelper());
@@ -59,6 +60,8 @@ $start = new class extends Command
                     $item = $todoList->get($id);
                     $item->setText(Ask::editText($item->text()));
                     break;
+                case Ask::SAVE:
+                    file_put_contents("save", $todoList->serialize());
             }
         }
 

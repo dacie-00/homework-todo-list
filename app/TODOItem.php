@@ -57,15 +57,16 @@ class TODOItem
         $this->setState(self::STATUS_UNCHECKED);
     }
 
-    public function serialize(): string
+    public function serialize(): array
     {
-        return json_encode(["text" => $this->text, "id" => $this->id, "state" => $this->state]);
+        return ["text" => $this->text, "id" => $this->id, "state" => $this->state];
     }
 
-    public static function deserialize(\stdClass $properties): TODOItem
+    public static function deserialize(\stdClass $stringItem): TODOItem
     {
-        $item = new TODOItem($properties->text, $properties->id);
-        $item->setState($properties->state);
+        var_dump($stringItem);
+        $item = new TODOItem($stringItem->text, $stringItem->id);
+        $item->setState($stringItem->state);
         return $item;
     }
 }
