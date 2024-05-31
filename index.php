@@ -15,8 +15,8 @@ require_once __DIR__ . '/vendor/autoload.php';
 
 $application = new Application();
 
-$start = new class extends Command {
-    protected static $defaultName = "start";
+$run = new class extends Command {
+    protected static $defaultName = "run";
 
 
     private function extractIDFromChoice(string $choice): int
@@ -102,6 +102,6 @@ $start = new class extends Command {
     }
 };
 
-$application->add($start);
-$application->setDefaultCommand("start");
+$application->add($run);
+$application->setDefaultCommand("run");
 $application->run();
