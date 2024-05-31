@@ -98,9 +98,4 @@ class TODOItem
     {
         $this->dueDate = $dueDate;
     }
-
-    private function setId(int $id): void
-    {
-        $this->id = $id;
-    }
 }
