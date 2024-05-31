@@ -69,5 +69,12 @@ class TODOList
         foreach ($serializedItems as $item) {
             $this->items[] = TODOItem::deserialize($item);
         }
+        $highestId = 0;
+        foreach ($this->items() as $item){
+            if ($item->id() > $highestId) {
+                $highestId = $item->id();
+            }
+        }
+        $this->idGenerator->addHighestId($highestId);
     }
 }

@@ -12,9 +12,12 @@ class IDGenerator
         return $newID;
     }
 
-    public function populate($ids)
+    public function addHighestId(int $id)
     {
-        $this->ids = $ids;
+        rsort($this->ids);
+        if ($this->ids[0] > $id) {
+            throw new \LogicException("Generator has ID that is higher than the provided ID");
+        }
+        $this->ids[] = $id;
     }
-
 }
