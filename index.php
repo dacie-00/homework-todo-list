@@ -90,8 +90,6 @@ $start = new class extends Command {
                     }
                     $this->save($todoList->serialize());
                     break;
-                case Ask::SAVE:
-                    $this->save($todoList->serialize());
                 case Ask::EXIT;
                     break 2;
             }

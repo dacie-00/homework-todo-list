@@ -19,7 +19,6 @@ class Ask
     const EDIT_ITEM_TEXT = "text";
     const EDIT_ITEM_DUE_DATE = "due date";
     const DELETE_ITEM = "delete item";
-    const SAVE = "save";
     const EXIT = "exit";
     private static InputInterface $input;
     private static OutputInterface $output;
@@ -34,7 +33,7 @@ class Ask
 
     public static function listAction(): string
     {
-        $question = new ChoiceQuestion("Action", [self::ADD_ITEM, self::TOGGLE_CHECK_ITEM, self::EDIT_ITEM, self::DELETE_ITEM, self::SAVE, self::EXIT]);
+        $question = new ChoiceQuestion("Action", [self::ADD_ITEM, self::TOGGLE_CHECK_ITEM, self::EDIT_ITEM, self::DELETE_ITEM, self::EXIT]);
         return self::$helper->ask(self::$input, self::$output, $question);
     }
 
