@@ -16,6 +16,8 @@ class Ask
     const ADD_ITEM = "add item";
     const TOGGLE_CHECK_ITEM = "toggle check item";
     const EDIT_ITEM = "edit item";
+    const EDIT_ITEM_TEXT = "text";
+    const EDIT_ITEM_DUE_DATE = "due date";
     const DELETE_ITEM = "delete item";
     const SAVE = "save";
     const EXIT = "exit";
@@ -79,4 +81,29 @@ class Ask
         });
         return self::$helper->ask(self::$input, self::$output, $question);
     }
+
+    public static function editDate(?Carbon $getDueDate)
+    {
+        $question = new Question("Change due date - \n");
+        $question->setAutocompleterValues([$getDueDate]);
+        $question->setValidator(function ($answer) {
+            if ($answer == "") {
+                return null;
+            }
+            try {
+                Carbon::parse($answer);
+            } catch (InvalidFormatException $e) {
+                throw new RuntimeException("Invalid due date");
+            }
+            return $answer;
+        });
+        return self::$helper->ask(self::$input, self::$output, $question);
+    }
+
+    public static function editItem()
+    {
+        $question = new ChoiceQuestion("Edit - ", [self::EDIT_ITEM_TEXT, self::EDIT_ITEM_DUE_DATE]);
+        return self::$helper->ask(self::$input, self::$output, $question);
+    }
+
 }

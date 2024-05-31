@@ -79,7 +79,15 @@ $start = new class extends Command {
                 case Ask::EDIT_ITEM:
                     $id = $this->extractIDFromChoice(Ask::item($todoList->getItems()));
                     $item = $todoList->get($id);
-                    $item->setText(Ask::editText($item->getText()));
+                    $editAction = Ask::editItem();
+                    switch ($editAction) {
+                        case Ask::EDIT_ITEM_TEXT:
+                            $item->setText(Ask::editText($item->getText()));
+                            break;
+                        case Ask::EDIT_ITEM_DUE_DATE:
+                            $item->setDueDate(Carbon::parse(Ask::editDate($item->getDueDate())));
+                            break;
+                    }
                     $this->save($todoList->serialize());
                     break;
                 case Ask::SAVE:
