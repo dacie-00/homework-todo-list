@@ -24,14 +24,47 @@ class TODOListDisplay
     {
         $table = new Table($this->output);
 
+
         foreach ($items as $item) {
             $checked = $item->getState() == TODOItem::STATUS_CHECKED ? "X" : " ";
-            $table->addRow([
+
+            $color = "";
+            $pastDueDate = false;
+            if ($item->getDueDate() != null) {
+                if ($item->getDueDate()->lessThan(Carbon::now())) {
+                    $color = "red";
+                    $pastDueDate = true;
+                }
+            }
+            if ($item->getState() == TODOItem::STATUS_CHECKED) {
+                $color = "white";
+            }
+            $dueDate = $item->getDueDate();
+            if ($dueDate !== null) {
+                $dueDate = Carbon::now()->to(
+                    $item->getDueDate(),
+                    CarbonInterface::DIFF_ABSOLUTE,
+                    false,
+                    2
+                );
+                if ($pastDueDate) {
+                    $dueDate = "-" . $dueDate;
+                }
+            } else {
+                $dueDate = "";
+            }
+            $row = [
                 $checked,
                 $item->getText(),
                 $item->getCreationDate()->toDateString(),
-                $item->getDueDate() == null ? "" : Carbon::now()->to($item->getDueDate(), CarbonInterface::DIFF_ABSOLUTE),
-            ]);
+                $dueDate
+            ];
+            if ($color != "") {
+                foreach ($row as &$cell) {
+                    $cell = "<fg=$color>" . $cell . "</>";
+                }
+            }
+            $table->addRow($row);
         }
         $table
             ->setStyle("box")
