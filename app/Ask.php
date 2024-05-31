@@ -42,7 +42,7 @@ class Ask
     {
         $choices = [];
         foreach ($items as $item) {
-            $choices[] = "{$item->text()} ({$item->id()})";
+            $choices[] = "{$item->getText()} ({$item->getId()})";
         }
         $question = new ChoiceQuestion("Action", $choices);
         return self::$helper->ask(self::$input, self::$output, $question);

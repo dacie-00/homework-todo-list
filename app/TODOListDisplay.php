@@ -25,12 +25,12 @@ class TODOListDisplay
         $table = new Table($this->output);
 
         foreach ($items as $item) {
-            $checked = $item->state() == TODOItem::STATUS_CHECKED ? "X" : " ";
+            $checked = $item->getState() == TODOItem::STATUS_CHECKED ? "X" : " ";
             $table->addRow([
                 $checked,
-                $item->text(),
-                $item->creationDate()->toDateString(),
-                $item->dueDate() == null ? "" : Carbon::now()->to($item->dueDate(), CarbonInterface::DIFF_ABSOLUTE),
+                $item->getText(),
+                $item->getCreationDate()->toDateString(),
+                $item->getDueDate() == null ? "" : Carbon::now()->to($item->getDueDate(), CarbonInterface::DIFF_ABSOLUTE),
             ]);
         }
         $table

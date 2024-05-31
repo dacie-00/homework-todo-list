@@ -23,7 +23,7 @@ class TODOItem
         $this->dueDate = null;
     }
 
-    public function text(): string
+    public function getText(): string
     {
         return $this->text;
     }
@@ -33,7 +33,7 @@ class TODOItem
         $this->text = $text;
     }
 
-    public function state(): string
+    public function getState(): string
     {
         return $this->state;
     }
@@ -43,7 +43,7 @@ class TODOItem
         $this->state = $state;
     }
 
-    public function creationDate(): Carbon
+    public function getCreationDate(): Carbon
     {
         return $this->creationDate;
     }
@@ -53,7 +53,7 @@ class TODOItem
         $this->creationDate = $creationDate;
     }
 
-    public function dueDate(): ?Carbon
+    public function getDueDate(): ?Carbon
     {
         return $this->dueDate;
     }
@@ -68,7 +68,7 @@ class TODOItem
         $this->id = $id;
     }
 
-    public function id(): int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -89,8 +89,8 @@ class TODOItem
             "text" => $this->text,
             "id" => $this->id,
             "state" => $this->state,
-            "creationDate" => $this->creationDate()->toTimeString(),
-            "dueDate" => $this->dueDate() == null ? null : $this->dueDate()->toDateTimeString(),
+            "creationDate" => $this->getCreationDate()->toTimeString(),
+            "dueDate" => $this->getDueDate() == null ? null : $this->getDueDate()->toDateTimeString(),
         ];
     }
 

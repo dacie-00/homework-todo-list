@@ -51,7 +51,7 @@ $start = new class extends Command
 
         Ask::initialize($input, $output, new Symfony\Component\Console\Helper\QuestionHelper());
         while(true){
-            $todoListDisplay->list($todoList->items());
+            $todoListDisplay->list($todoList->getItems());
             $action = Ask::listAction();
 
             switch ($action) {
@@ -65,21 +65,21 @@ $start = new class extends Command
                     $this->save($todoList->serialize());
                     break;
                 case Ask::DELETE_ITEM:
-                    $id = $this->extractIDFromChoice(Ask::item($todoList->items()));
+                    $id = $this->extractIDFromChoice(Ask::item($todoList->getItems()));
                     $item = $todoList->get($id);
                     $todoList->remove($item);
                     $this->save($todoList->serialize());
                     break;
                 case Ask::TOGGLE_CHECK_ITEM:
-                    $id = $this->extractIDFromChoice(Ask::item($todoList->items()));
+                    $id = $this->extractIDFromChoice(Ask::item($todoList->getItems()));
                     $item = $todoList->get($id);
                     $todoList->toggleCheck($item);
                     $this->save($todoList->serialize());
                     break;
                 case Ask::EDIT_ITEM:
-                    $id = $this->extractIDFromChoice(Ask::item($todoList->items()));
+                    $id = $this->extractIDFromChoice(Ask::item($todoList->getItems()));
                     $item = $todoList->get($id);
-                    $item->setText(Ask::editText($item->text()));
+                    $item->setText(Ask::editText($item->getText()));
                     $this->save($todoList->serialize());
                     break;
                 case Ask::SAVE:

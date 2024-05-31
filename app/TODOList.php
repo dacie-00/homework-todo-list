@@ -31,7 +31,7 @@ class TODOList
     public function get(int $id): ?TODOItem
     {
         foreach ($this->items as $item) {
-            if ($item->id() == $id) {
+            if ($item->getId() == $id) {
                 return $item;
             }
         }
@@ -50,14 +50,14 @@ class TODOList
 
     public function toggleCheck(TODOItem $item): void
     {
-        if ($item->state() == TODOItem::STATUS_UNCHECKED) {
+        if ($item->getState() == TODOItem::STATUS_UNCHECKED) {
             $item->check();
             return;
         }
         $item->uncheck();
     }
 
-    public function items(): array
+    public function getItems(): array
     {
         return $this->items;
     }
@@ -77,9 +77,9 @@ class TODOList
             $this->items[] = TODOItem::deserialize($item);
         }
         $highestId = 0;
-        foreach ($this->items() as $item){
-            if ($item->id() > $highestId) {
-                $highestId = $item->id();
+        foreach ($this->getItems() as $item){
+            if ($item->getId() > $highestId) {
+                $highestId = $item->getId();
             }
         }
         $this->idGenerator->addHighestId($highestId);
