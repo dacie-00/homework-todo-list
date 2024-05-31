@@ -25,7 +25,6 @@ class TODOListDisplay
         $table = new Table($this->output);
 
 
-
         foreach ($items as $item) {
             $checked = $item->getState() == TODOItem::STATUS_CHECKED ? "X" : " ";
 

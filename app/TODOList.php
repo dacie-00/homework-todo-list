@@ -6,14 +6,14 @@ use Carbon\Carbon;
 
 class TODOList
 {
+    const SORT_DUE_DATE = "due date";
+    const SORT_ADDED_DATE = "added date";
+    const SORT_ALPHABETICAL = "alphabetical order";
     /**
      * @var TODOItem[]
      */
     private array $items = [];
     private IDGenerator $idGenerator;
-    const SORT_DUE_DATE = "due date";
-    const SORT_ADDED_DATE = "added date";
-    const SORT_ALPHABETICAL = "alphabetical order";
     private string $sort = self::SORT_ADDED_DATE;
 
     public function __construct()
