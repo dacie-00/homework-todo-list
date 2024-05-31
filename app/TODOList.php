@@ -11,6 +11,10 @@ class TODOList
      */
     private array $items = [];
     private IDGenerator $idGenerator;
+    const SORT_DUE_DATE = "due date";
+    const SORT_ADDED_DATE = "added date";
+    const SORT_ALPHABETICAL = "alphabetical order";
+    private string $sort = self::SORT_ADDED_DATE;
 
     public function __construct()
     {
@@ -82,6 +86,29 @@ class TODOList
 
     public function getItems(): array
     {
+        switch ($this->sort) {
+            case self::SORT_DUE_DATE:
+                usort($this->items, function (TODOItem $a, TODOItem $b) {
+                    return $a->getDueDate() <=> $b->getDueDate();
+                });
+                break;
+            case self::SORT_ADDED_DATE:
+                usort($this->items, function (TODOItem $a, TODOItem $b) {
+                    return $a->getCreationDate() <=> $b->getCreationDate();
+                });
+                break;
+            case self::SORT_ALPHABETICAL:
+                usort($this->items, function (TODOItem $a, TODOItem $b) {
+                    return $a->getText() <=> $b->getText();
+                });
+                break;
+
+        }
         return $this->items;
+    }
+
+    public function setSort(string $sort): void
+    {
+        $this->sort = $sort;
     }
 }

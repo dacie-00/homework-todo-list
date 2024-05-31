@@ -90,6 +90,9 @@ $start = new class extends Command {
                     }
                     $this->save($todoList->serialize());
                     break;
+                case Ask::CHANGE_SORTING;
+                    $todoList->setSort(Ask::sort());
+                    break;
                 case Ask::EXIT;
                     break 2;
             }

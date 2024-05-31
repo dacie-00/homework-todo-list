@@ -19,6 +19,7 @@ class Ask
     const EDIT_ITEM_TEXT = "text";
     const EDIT_ITEM_DUE_DATE = "due date";
     const DELETE_ITEM = "delete item";
+    const CHANGE_SORTING = "change sorting";
     const EXIT = "exit";
     private static InputInterface $input;
     private static OutputInterface $output;
@@ -33,7 +34,7 @@ class Ask
 
     public static function listAction(): string
     {
-        $question = new ChoiceQuestion("Action", [self::ADD_ITEM, self::TOGGLE_CHECK_ITEM, self::EDIT_ITEM, self::DELETE_ITEM, self::EXIT]);
+        $question = new ChoiceQuestion("Action", [self::ADD_ITEM, self::TOGGLE_CHECK_ITEM, self::EDIT_ITEM, self::DELETE_ITEM, self::CHANGE_SORTING, self::EXIT]);
         return self::$helper->ask(self::$input, self::$output, $question);
     }
 
@@ -102,6 +103,12 @@ class Ask
     public static function editItem()
     {
         $question = new ChoiceQuestion("Edit - ", [self::EDIT_ITEM_TEXT, self::EDIT_ITEM_DUE_DATE]);
+        return self::$helper->ask(self::$input, self::$output, $question);
+    }
+
+    public static function sort()
+    {
+        $question = new ChoiceQuestion("Sort by - ", [TODOlist::SORT_ADDED_DATE, TODOlist::SORT_DUE_DATE, TODOList::SORT_ALPHABETICAL]);
         return self::$helper->ask(self::$input, self::$output, $question);
     }
 
