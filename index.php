@@ -54,6 +54,9 @@ $start = new class extends Command {
             switch ($action) {
                 case Ask::ADD_ITEM:
                     $name = Ask::text();
+                    if ($name == null) {
+                        break;
+                    }
                     $dueDate = Ask::date();
                     if ($dueDate !== null) {
                         $dueDate = Carbon::parse($dueDate);

@@ -57,7 +57,7 @@ class Ask
         return self::$helper->ask(self::$input, self::$output, $question);
     }
 
-    public static function text(): string
+    public static function text(): ?string
     {
         $question = new Question("Enter text - \n");
         return self::$helper->ask(self::$input, self::$output, $question);
