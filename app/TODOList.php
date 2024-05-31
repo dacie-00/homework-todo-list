@@ -37,6 +37,7 @@ class TODOList
         foreach ($this->items as $index => $otherItem) {
             if ($item === $otherItem) {
                 unset($this->items[$index]);
+                $this->items = array_values($this->items);
             }
         }
     }

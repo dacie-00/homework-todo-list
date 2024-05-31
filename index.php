@@ -57,21 +57,25 @@ $start = new class extends Command
                 case Ask::ADD_ITEM:
                     $name = Ask::text();
                     $todoList->add($name);
+                    $this->save($todoList->serialize());
                     break;
                 case Ask::DELETE_ITEM:
                     $id = $this->extractIDFromChoice(Ask::item($todoList->items()));
                     $item = $todoList->get($id);
                     $todoList->remove($item);
+                    $this->save($todoList->serialize());
                     break;
                 case Ask::TOGGLE_CHECK_ITEM:
                     $id = $this->extractIDFromChoice(Ask::item($todoList->items()));
                     $item = $todoList->get($id);
                     $todoList->toggleCheck($item);
+                    $this->save($todoList->serialize());
                     break;
                 case Ask::EDIT_ITEM:
                     $id = $this->extractIDFromChoice(Ask::item($todoList->items()));
                     $item = $todoList->get($id);
                     $item->setText(Ask::editText($item->text()));
+                    $this->save($todoList->serialize());
                     break;
                 case Ask::SAVE:
                     $this->save($todoList->serialize());
