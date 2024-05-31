@@ -67,7 +67,7 @@ class TODOList
         foreach ($this->items as $item) {
             $serializedItems[] = $item->serialize();
         }
-        return json_encode($serializedItems);
+        return json_encode($serializedItems, JSON_PRETTY_PRINT);
     }
 
     public function deserialize(array $serializedItems): void
