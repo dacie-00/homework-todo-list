@@ -34,7 +34,14 @@ class Ask
 
     public static function listAction(): string
     {
-        $question = new ChoiceQuestion("Action", [self::ADD_ITEM, self::TOGGLE_CHECK_ITEM, self::EDIT_ITEM, self::DELETE_ITEM, self::CHANGE_SORTING, self::EXIT]);
+        $question = new ChoiceQuestion("Action", [
+            self::ADD_ITEM,
+            self::TOGGLE_CHECK_ITEM,
+            self::EDIT_ITEM,
+            self::DELETE_ITEM,
+            self::CHANGE_SORTING,
+            self::EXIT
+        ]);
         return self::$helper->ask(self::$input, self::$output, $question);
     }
 
@@ -102,13 +109,20 @@ class Ask
 
     public static function editItem()
     {
-        $question = new ChoiceQuestion("Edit - ", [self::EDIT_ITEM_TEXT, self::EDIT_ITEM_DUE_DATE]);
+        $question = new ChoiceQuestion("Edit - ", [
+            self::EDIT_ITEM_TEXT,
+            self::EDIT_ITEM_DUE_DATE
+        ]);
         return self::$helper->ask(self::$input, self::$output, $question);
     }
 
     public static function sort()
     {
-        $question = new ChoiceQuestion("Sort by - ", [TODOlist::SORT_ADDED_DATE, TODOlist::SORT_DUE_DATE, TODOList::SORT_ALPHABETICAL]);
+        $question = new ChoiceQuestion("Sort by - ", [
+            TODOlist::SORT_ADDED_DATE,
+            TODOlist::SORT_DUE_DATE,
+            TODOList::SORT_ALPHABETICAL
+        ]);
         return self::$helper->ask(self::$input, self::$output, $question);
     }
 
