@@ -84,9 +84,10 @@ $start = new class extends Command
                     break;
                 case Ask::SAVE:
                     $this->save($todoList->serialize());
+                case Ask::EXIT;
+                    break 2;
             }
         }
-
 
         return Command::SUCCESS;
     }

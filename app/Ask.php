@@ -21,6 +21,7 @@ class Ask
     const EDIT_ITEM = "edit item";
     const DELETE_ITEM = "delete item";
     const SAVE = "save";
+    const EXIT = "exit";
 
     public static function initialize(InputInterface $input, OutputInterface $output, QuestionHelper $helper): void
     {
@@ -31,7 +32,7 @@ class Ask
 
     public static function listAction(): string
     {
-        $question = new ChoiceQuestion("Action", [self::ADD_ITEM, self::TOGGLE_CHECK_ITEM, self::EDIT_ITEM, self::DELETE_ITEM, self::SAVE]);
+        $question = new ChoiceQuestion("Action", [self::ADD_ITEM, self::TOGGLE_CHECK_ITEM, self::EDIT_ITEM, self::DELETE_ITEM, self::SAVE, self::EXIT]);
         return self::$helper->ask(self::$input, self::$output, $question);
     }
 
