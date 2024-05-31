@@ -74,7 +74,7 @@ class TODOItem
             "text" => $this->text,
             "id" => $this->id,
             "state" => $this->state,
-            "creationDate" => $this->getCreationDate()->toTimeString(),
+            "creationDate" => $this->getCreationDate()->toDateTimeString(),
             "dueDate" => $this->getDueDate() == null ? null : $this->getDueDate()->toDateTimeString(),
         ];
     }
