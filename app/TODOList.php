@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Carbon\Carbon;
+
 class TODOList
 {
     /**
@@ -15,9 +17,13 @@ class TODOList
         $this->idGenerator = new IDGenerator();
     }
 
-    public function add(string $text): TODOItem
+    public function add(string $text, ?Carbon $dueDate): TODOItem
     {
         $item = new TODOItem($text, $this->idGenerator->id());
+        $item->setCreationDate(Carbon::now());
+        if ($dueDate !== null) {
+            $item->setDueDate($dueDate);
+        }
         $this->items[] = $item;
         return $item;
     }

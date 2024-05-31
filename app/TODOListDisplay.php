@@ -24,14 +24,19 @@ class TODOListDisplay
 
         foreach ($items as $item) {
             $checked = $item->state() == TODOItem::STATUS_CHECKED ? "X" : " ";
-            $table->addRow([$checked, $item->text()]);
+            $table->addRow([
+                $checked,
+                $item->text(),
+                $item->creationDate()->toDateString(),
+                $item->dueDate() == null ? "" : $item->dueDate()->toDateString(),
+            ]);
         }
         $table
             ->setStyle("box")
             ->getStyle()
             ->setPadType(STR_PAD_BOTH);
         $table
-            ->setHeaders(["Done", "Task"])
+            ->setHeaders(["Done", "Task", "Creation date", "Due date"])
             ->render();
     }
 

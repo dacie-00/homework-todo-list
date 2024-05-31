@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Carbon\Carbon;
+use Carbon\Exceptions\InvalidFormatException;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -57,6 +59,23 @@ class Ask
     public static function text(): string
     {
         $question = new Question("Enter text - \n");
+        return self::$helper->ask(self::$input, self::$output, $question);
+    }
+
+    public static function date()
+    {
+        $question = new Question("Enter the due date - \n");
+        $question->setValidator(function($answer) {
+            if ($answer == "") {
+                return null;
+            }
+            try {
+                Carbon::parse($answer);
+            } catch (InvalidFormatException $e) {
+                throw new \RuntimeException("Invalid due date");
+            }
+            return $answer;
+        });
         return self::$helper->ask(self::$input, self::$output, $question);
     }
 }

@@ -5,6 +5,7 @@ use App\Ask;
 use App\TODOItem;
 use App\TODOList;
 use App\TODOListDisplay;
+use Carbon\Carbon;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
@@ -56,7 +57,11 @@ $start = new class extends Command
             switch ($action) {
                 case Ask::ADD_ITEM:
                     $name = Ask::text();
-                    $todoList->add($name);
+                    $dueDate = Ask::date();
+                    if ($dueDate !== null) {
+                        $dueDate = Carbon::parse($dueDate);
+                    }
+                    $todoList->add($name, $dueDate);
                     $this->save($todoList->serialize());
                     break;
                 case Ask::DELETE_ITEM:
