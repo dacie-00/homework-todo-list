@@ -1,6 +1,7 @@
 {
   "require": {
-    "symfony/console": "^5.4"
+    "symfony/console": "^5.4",
+    "nesbot/carbon": "^2.72"
   },
   "autoload": {
     "psr-4": {
