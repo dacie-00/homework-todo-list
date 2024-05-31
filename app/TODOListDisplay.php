@@ -2,6 +2,8 @@
 
 namespace App;
 
+use Carbon\Carbon;
+use Carbon\CarbonInterface;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -28,7 +30,7 @@ class TODOListDisplay
                 $checked,
                 $item->text(),
                 $item->creationDate()->toDateString(),
-                $item->dueDate() == null ? "" : $item->dueDate()->toDateString(),
+                $item->dueDate() == null ? "" : Carbon::now()->to($item->dueDate(), CarbonInterface::DIFF_ABSOLUTE),
             ]);
         }
         $table
@@ -36,7 +38,7 @@ class TODOListDisplay
             ->getStyle()
             ->setPadType(STR_PAD_BOTH);
         $table
-            ->setHeaders(["Done", "Task", "Creation date", "Due date"])
+            ->setHeaders(["Done", "Task", "Creation date", "Due in"])
             ->render();
     }
 
