@@ -3,6 +3,7 @@
 namespace App;
 
 use Carbon\Carbon;
+use stdClass;
 
 class TODOItem
 {
@@ -23,6 +24,15 @@ class TODOItem
         $this->dueDate = null;
     }
 
+    public static function deserialize(stdClass $stringItem): TODOItem
+    {
+        $item = new TODOItem($stringItem->text, $stringItem->id);
+        $item->setState($stringItem->state);
+        $item->setCreationDate(Carbon::parse($stringItem->creationDate));
+        $item->setDueDate(Carbon::parse($stringItem->dueDate));
+        return $item;
+    }
+
     public function getText(): string
     {
         return $this->text;
@@ -41,31 +51,6 @@ class TODOItem
     public function setState(string $state): void
     {
         $this->state = $state;
-    }
-
-    public function getCreationDate(): Carbon
-    {
-        return $this->creationDate;
-    }
-
-    public function setCreationDate(Carbon $creationDate): void
-    {
-        $this->creationDate = $creationDate;
-    }
-
-    public function getDueDate(): ?Carbon
-    {
-        return $this->dueDate;
-    }
-
-    public function setDueDate(?Carbon $dueDate): void
-    {
-        $this->dueDate = $dueDate;
-    }
-
-    private function setId(int $id): void
-    {
-        $this->id = $id;
     }
 
     public function getId(): int
@@ -94,12 +79,28 @@ class TODOItem
         ];
     }
 
-    public static function deserialize(\stdClass $stringItem): TODOItem
+    public function getCreationDate(): Carbon
     {
-        $item = new TODOItem($stringItem->text, $stringItem->id);
-        $item->setState($stringItem->state);
-        $item->setCreationDate(Carbon::parse($stringItem->creationDate));
-        $item->setDueDate(Carbon::parse($stringItem->dueDate));
-        return $item;
+        return $this->creationDate;
+    }
+
+    public function setCreationDate(Carbon $creationDate): void
+    {
+        $this->creationDate = $creationDate;
+    }
+
+    public function getDueDate(): ?Carbon
+    {
+        return $this->dueDate;
+    }
+
+    public function setDueDate(?Carbon $dueDate): void
+    {
+        $this->dueDate = $dueDate;
+    }
+
+    private function setId(int $id): void
+    {
+        $this->id = $id;
     }
 }

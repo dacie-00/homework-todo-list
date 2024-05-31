@@ -57,11 +57,6 @@ class TODOList
         $item->uncheck();
     }
 
-    public function getItems(): array
-    {
-        return $this->items;
-    }
-
     public function serialize(): string
     {
         $serializedItems = [];
@@ -77,11 +72,16 @@ class TODOList
             $this->items[] = TODOItem::deserialize($item);
         }
         $highestId = 0;
-        foreach ($this->getItems() as $item){
+        foreach ($this->getItems() as $item) {
             if ($item->getId() > $highestId) {
                 $highestId = $item->getId();
             }
         }
         $this->idGenerator->addHighestId($highestId);
+    }
+
+    public function getItems(): array
+    {
+        return $this->items;
     }
 }

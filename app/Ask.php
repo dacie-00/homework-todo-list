@@ -4,6 +4,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Carbon\Exceptions\InvalidFormatException;
+use RuntimeException;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -12,16 +13,15 @@ use Symfony\Component\Console\Question\Question;
 
 class Ask
 {
-    private static InputInterface $input;
-    private static OutputInterface $output;
-    private static QuestionHelper $helper;
-
     const ADD_ITEM = "add item";
     const TOGGLE_CHECK_ITEM = "toggle check item";
     const EDIT_ITEM = "edit item";
     const DELETE_ITEM = "delete item";
     const SAVE = "save";
     const EXIT = "exit";
+    private static InputInterface $input;
+    private static OutputInterface $output;
+    private static QuestionHelper $helper;
 
     public static function initialize(InputInterface $input, OutputInterface $output, QuestionHelper $helper): void
     {
@@ -66,14 +66,14 @@ class Ask
     public static function date()
     {
         $question = new Question("Enter the due date - \n");
-        $question->setValidator(function($answer) {
+        $question->setValidator(function ($answer) {
             if ($answer == "") {
                 return null;
             }
             try {
                 Carbon::parse($answer);
             } catch (InvalidFormatException $e) {
-                throw new \RuntimeException("Invalid due date");
+                throw new RuntimeException("Invalid due date");
             }
             return $answer;
         });

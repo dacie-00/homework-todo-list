@@ -5,6 +5,7 @@ namespace App;
 class IDGenerator
 {
     private array $ids = [];
+
     public function id()
     {
         $newID = end($this->ids) + 1;
