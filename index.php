@@ -7,6 +7,7 @@ use App\TODOListDisplay;
 use Carbon\Carbon;
 use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -46,7 +47,7 @@ $run = new class extends Command {
         }
         $todoListDisplay = new TODOListDisplay($output);
 
-        Ask::initialize($input, $output, new Symfony\Component\Console\Helper\QuestionHelper());
+        Ask::initialize($input, $output, new QuestionHelper());
         while (true) {
             $todoListDisplay->list($todoList->getItems());
             $action = Ask::listAction();
@@ -85,7 +86,11 @@ $run = new class extends Command {
                             $item->setText(Ask::editText($item->getText()));
                             break;
                         case Ask::EDIT_ITEM_DUE_DATE:
-                            $item->setDueDate(Carbon::parse(Ask::editDate($item->getDueDate())));
+                            $dueDate = Ask::editDate($item->getDueDate());
+                            if ($dueDate !== null) {
+                                $dueDate = Carbon::parse($dueDate);
+                            }
+                            $item->setDueDate($dueDate);
                             break;
                     }
                     $this->save($todoList->serialize());
