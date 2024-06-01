@@ -72,7 +72,7 @@ class Ask
         return self::$helper->ask(self::$input, self::$output, $question);
     }
 
-    public static function date()
+    public static function date(): string
     {
         $question = new Question("Enter the due date - \n");
         $question->setValidator(function ($answer) {
@@ -89,7 +89,7 @@ class Ask
         return self::$helper->ask(self::$input, self::$output, $question);
     }
 
-    public static function editDate(?Carbon $getDueDate)
+    public static function editDate(?Carbon $getDueDate): string
     {
         $question = new Question("Change due date - \n");
         $question->setAutocompleterValues([$getDueDate]);
@@ -107,7 +107,7 @@ class Ask
         return self::$helper->ask(self::$input, self::$output, $question);
     }
 
-    public static function editItem()
+    public static function editItem(): string
     {
         $question = new ChoiceQuestion("Edit - ", [
             self::EDIT_ITEM_TEXT,
@@ -116,7 +116,7 @@ class Ask
         return self::$helper->ask(self::$input, self::$output, $question);
     }
 
-    public static function sort()
+    public static function sort(): string
     {
         $question = new ChoiceQuestion("Sort by - ", [
             TODOlist::SORT_ADDED_DATE,

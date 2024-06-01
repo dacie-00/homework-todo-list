@@ -6,14 +6,14 @@ class IDGenerator
 {
     private array $ids = [];
 
-    public function id()
+    public function id(): int
     {
         $newID = end($this->ids) + 1;
         $this->ids[] = $newID;
         return $newID;
     }
 
-    public function addHighestId(int $id)
+    public function addHighestId(int $id): void
     {
         $this->ids[] = $id;
     }

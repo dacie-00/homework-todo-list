@@ -33,7 +33,7 @@ $run = new class extends Command {
         return null;
     }
 
-    private function save(string $data)
+    private function save(string $data): void
     {
         file_put_contents("data/save.json", $data);
     }
