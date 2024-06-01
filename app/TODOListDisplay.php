@@ -19,7 +19,6 @@ class TODOListDisplay
     /**
      * @param TODOItem[] $items
      */
-
     public function list(array $items): void
     {
         $table = new Table($this->output);
