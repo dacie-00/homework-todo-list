@@ -49,8 +49,17 @@ $run = new class extends Command {
 
         Ask::initialize($input, $output, new QuestionHelper());
         while (true) {
-            $todoListDisplay->list($todoList->getItems());
+            $itemCount = count($todoList->getItems());
+            if ($itemCount < 1) {
+                echo "You have nothing to do!\n";
+            } else {
+                $todoListDisplay->list($todoList->getItems());
+            }
             $action = Ask::listAction();
+            if ($itemCount < 1 && in_array($action, [Ask::EDIT_ITEM, Ask::TOGGLE_CHECK_ITEM, Ask::DELETE_ITEM])) {
+                echo "You cannot do this action as you have no todo items!\n";
+                continue;
+            }
 
             switch ($action) {
                 case Ask::ADD_ITEM:
