@@ -72,7 +72,7 @@ class Ask
         return self::$helper->ask(self::$input, self::$output, $question);
     }
 
-    public static function date(): string
+    public static function date(): ?string
     {
         $question = new Question("Enter the due date - \n");
         $question->setValidator(function ($answer) {
@@ -89,7 +89,7 @@ class Ask
         return self::$helper->ask(self::$input, self::$output, $question);
     }
 
-    public static function editDate(?Carbon $getDueDate): string
+    public static function editDate(?Carbon $getDueDate): ?string
     {
         $question = new Question("Change due date - \n");
         $question->setAutocompleterValues([$getDueDate]);
